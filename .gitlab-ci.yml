@@ -1,5 +1,5 @@
 # Pipeline CI/CD — Registro Municipal
-# Etapas: install -> lint -> test -> e2e -> image
+# Etapas: install -> lint -> test -> e2e -> package (build+push imagen)
 # El deploy es FUERA DE BANDA: CI publica la imagen en el Container Registry y el
 # despliegue se hace en el host con docker compose (ver DEPLOYMENT.md).
 
@@ -8,7 +8,7 @@ stages:
   - lint
   - test
   - e2e
-  - image
+  - package
 
 default:
   image: node:20
@@ -62,8 +62,9 @@ e2e:
 
 # Construye y publica la imagen de producción en el GitLab Container Registry.
 # Etiqueta con el SHA del commit y 'latest'. Despliegue: ver DEPLOYMENT.md.
-image:
-  stage: image
+# NOTA: el job NO puede llamarse 'image' (palabra reservada de GitLab).
+docker-image:
+  stage: package
   image: docker:27-cli
   services:
     - docker:27-dind
