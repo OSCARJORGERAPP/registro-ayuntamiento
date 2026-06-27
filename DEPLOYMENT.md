@@ -6,16 +6,21 @@ despliegue se hace **fuera de banda** en el host objetivo con `docker compose`.
 > Especificación: [`PROMPT.md`](PROMPT.md) · Operativa: [`AGENTS.md`](AGENTS.md)
 
 ## 1. Imagen de producción
-La construye y publica el job `image` del pipeline ([.gitlab-ci.yml](.gitlab-ci.yml))
-en cada push a `main`:
+El pipeline ([.gitlab-ci.yml](.gitlab-ci.yml)) **construye** la imagen en cada push a
+`main` (job `docker-image`) para validar el Dockerfile. **No la publica**: esta
+instancia de GitLab no tiene Container Registry (`/v2` → 404), así que la publicación
+es manual/fuera de banda.
 
-- `…/registro-ayuntamiento:<CI_COMMIT_SHA>` — inmutable, para fijar versión.
-- `…/registro-ayuntamiento:latest` — última de `main`.
-
-Build local equivalente (para probar):
+Build (local o en el host de despliegue):
 ```bash
 docker build -t registro-ayuntamiento:local .
 ```
+Para publicar en un registry propio (Docker Hub, GHCR, etc.), etiqueta y push:
+```bash
+docker tag registro-ayuntamiento:local <registry>/registro-ayuntamiento:<tag>
+docker push <registry>/registro-ayuntamiento:<tag>
+```
+(En el pipeline, el push está comentado y listo para reactivar si hay registry.)
 
 La imagen: Node 20 alpine, solo dependencias de producción, **usuario no root**,
 `HEALTHCHECK` sobre `/health`, expone el puerto 3000.

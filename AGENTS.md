@@ -93,8 +93,9 @@ LOAD_CONC=100 LOAD_TOTAL=5000 npm run loadtest      # vía variables de entorno
 Umbrales objetivo y baselines medidos en `PROMPT.md §5/§8`.
 
 ## 🌐 Deployment (imagen Docker)
-CI publica la imagen en el GitLab Container Registry (job `image`, push a `main`);
-el despliegue es **fuera de banda** con `docker compose`. Guía completa: `DEPLOYMENT.md`.
+CI **construye** la imagen (job `docker-image`) para validar el Dockerfile; el push
+está deshabilitado (la instancia no tiene Container Registry). El despliegue es
+**fuera de banda**: build local + `docker compose`. Guía completa: `DEPLOYMENT.md`.
 
 ```bash
 # Build local de la imagen de producción

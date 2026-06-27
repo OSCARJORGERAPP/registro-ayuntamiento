@@ -135,7 +135,7 @@ Estado real detectado en el repo (2026-06-26):
 | Seed de datos (`npm run seed`) | Áreas, usuarios, presentaciones, expedientes de ejemplo | ✅ |
 | `.env.example` | Plantilla de variables de entorno | ✅ |
 | `package-lock.json` | Dependencias bloqueadas (commiteado) | ✅ |
-| `.gitlab-ci.yml` | Pipeline install → lint → test → e2e → image (publica imagen) | ✅ |
+| `.gitlab-ci.yml` | Pipeline install → lint → test → e2e → package (build imagen) | ✅ |
 | `Dockerfile` + `docker-compose.yml` | Imagen de producción y stack reproducible | ✅ |
 | Diagrama de arquitectura | En README (Mermaid) | ✅ |
 | Sección de métricas | `GET /metrics` (latencias, ops Mongo, tamaños, proceso) + `npm run loadtest` | ✅ |
@@ -161,8 +161,9 @@ Concurrencia y punto de degradación: **`npm run loadtest [url] [conc] [total]`*
 En producción, estos mismos puntos de registro pueden exportarse a Prometheus/OTel.
 
 ## 9. Deployment público
-Modelo: **imagen Docker** publicada por CI en el GitLab Container Registry; ejecución
-**fuera de banda** con `docker compose` en el host. Guía completa: [`DEPLOYMENT.md`](DEPLOYMENT.md).
+Modelo: **imagen Docker**. CI valida que la imagen construye (job `docker-image`); la
+**publicación es fuera de banda** porque esta instancia de GitLab no tiene Container
+Registry (`/v2` → 404) — build local y `docker compose` en el host. Guía: [`DEPLOYMENT.md`](DEPLOYMENT.md).
 - **Entorno objetivo:** `production` (+ `staging`/`demo` opcional).
 - **Plataforma:** contenedor Docker (Node 20 alpine, no root) sobre cualquier host con
   Docker; MongoDB en compose o gestionado (Atlas). Verificado en local con compose.
