@@ -60,8 +60,10 @@ e2e:
       - playwright-report/
     expire_in: 1 week
 
-# Construye y publica la imagen de producción en el GitLab Container Registry.
-# Etiqueta con el SHA del commit y 'latest'. Despliegue: ver DEPLOYMENT.md.
+# Construye la imagen de producción para validar el Dockerfile en CI.
+# El PUSH está deshabilitado: esta instancia de GitLab NO tiene Container Registry
+# (registry.proyectos.codecrypto.academy/v2 -> 404). El despliegue es fuera de banda
+# con build local (ver DEPLOYMENT.md). Si se habilita un registry, descomenta el push.
 # NOTA: el job NO puede llamarse 'image' (palabra reservada de GitLab).
 docker-image:
   stage: package
@@ -74,7 +76,9 @@ docker-image:
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
   script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
-    - docker build -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA" -t "$CI_REGISTRY_IMAGE:latest" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA"
-    - docker push "$CI_REGISTRY_IMAGE:latest"
+    - docker build -t "registro-ayuntamiento:$CI_COMMIT_SHA" .
+    # Publicación (requiere Container Registry habilitado en la instancia):
+    # - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+    # - docker build -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA" -t "$CI_REGISTRY_IMAGE:latest" .
+    # - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA"
+    # - docker push "$CI_REGISTRY_IMAGE:latest"
