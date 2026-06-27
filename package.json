@@ -1,0 +1,35 @@
+{
+  "name": "registro-ayuntamiento",
+  "version": "0.1.0",
+  "description": "SaaS de registro de entrada y tramitación para ayuntamientos (magic link, expedientes, actuaciones).",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "build": "node -e \"console.log('Sin paso de build: app server-rendered en JS plano')\"",
+    "test": "node --test",
+    "test:watch": "node --test --watch",
+    "test:cov": "node --test --experimental-test-coverage",
+    "test:e2e": "playwright test",
+    "seed": "node scripts/seed.js",
+    "seed:reset": "node scripts/seed.js --reset",
+    "loadtest": "node scripts/loadtest.js",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "mongodb": "^6.8.0",
+    "multer": "^2.2.0",
+    "nodemailer": "^9.0.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0",
+    "eslint": "^9.7.0",
+    "nodemon": "^3.1.4"
+  }
+}

@@ -1,0 +1,26 @@
+# Dependencias y artefactos (se instalan dentro de la imagen)
+node_modules
+npm-debug.log*
+
+# Control de versiones y CI
+.git
+.gitignore
+.gitlab-ci.yml
+
+# Tests y herramientas de desarrollo (no van en la imagen de producción)
+tests
+e2e
+playwright.config.js
+playwright-report
+test-results
+coverage
+eslint.config.js
+
+# Entorno y secretos
+.env
+.env.*
+
+# Datos locales y documentación
+uploads
+*.md
+.claude

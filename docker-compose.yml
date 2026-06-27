@@ -1,0 +1,56 @@
+# Stack reproducible para ejecutar la imagen publicada (o una local).
+#
+#   Local (build):   docker build -t registro-ayuntamiento:local .
+#                    SESSION_SECRET=dev docker compose up -d
+#   Producción:      APP_IMAGE=<registry>/registro-ayuntamiento:<tag> \
+#                    SESSION_SECRET=<secreto> APP_URL=https://tu-dominio \
+#                    docker compose up -d
+#   Con MailHog (demo/dev):  docker compose --profile dev up -d
+#
+# MongoDB persiste en el volumen mongo-data; los adjuntos en uploads.
+
+services:
+  app:
+    image: ${APP_IMAGE:-registro-ayuntamiento:local}
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      APP_URL: ${APP_URL:-http://localhost:3000}
+      MONGODB_URI: mongodb://mongo:27017
+      MONGODB_DB: ${MONGODB_DB:-registro_municipal}
+      SESSION_SECRET: ${SESSION_SECRET:?define SESSION_SECRET}
+      MAIL_HOST: ${MAIL_HOST:-mailhog}
+      MAIL_PORT: ${MAIL_PORT:-1025}
+      MAIL_FROM: ${MAIL_FROM:-no-reply@registro.local}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-10}
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - "${PORT:-3000}:3000"
+    volumes:
+      - uploads:/app/uploads
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Solo para dev/demo: captura los magic links. En producción usa SMTP real.
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+    restart: unless-stopped
+    profiles: ["dev"]
+
+volumes:
+  mongo-data:
+  uploads:

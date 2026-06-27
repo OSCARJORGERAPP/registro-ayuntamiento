@@ -1,0 +1,10 @@
+# Normaliza todos los archivos de texto a LF en el repositorio (la CI corre en Linux).
+* text=auto eol=lf
+
+# Binarios habituales (por si se añaden adjuntos de ejemplo / imágenes).
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.ico binary

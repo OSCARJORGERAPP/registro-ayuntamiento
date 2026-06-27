@@ -1,0 +1,36 @@
+# === Dependencias ===
+node_modules/
+.npm/
+# NOTA: package-lock.json SÍ se versiona (lo necesita `npm ci` en CI). No ignorar.
+
+# === Entorno y secretos ===
+.env
+.env.*
+!.env.example
+
+# === Adjuntos subidos en dev/runtime ===
+uploads/
+
+# === Tests / cobertura / Playwright ===
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+playwright/.cache/
+
+# === Logs y temporales ===
+*.log
+npm-debug.log*
+yarn-error.log*
+pids/
+*.pid
+
+# === Editor / SO ===
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+.vscode/*
+!.vscode/extensions.json
