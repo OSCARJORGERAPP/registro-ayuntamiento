@@ -27,7 +27,7 @@ npm run dev
 ```
 
 ## Arquitectura
-<!-- TODO: revisar al implementar; refleja PROMPT.md §3/§6 -->
+Refleja la implementación actual (`src/`) y el modelo de `PROMPT.md` §3/§6.
 ```mermaid
 flowchart LR
   U[Contribuyente / Funcionario] -->|HTTP| APP[App Express + vistas]
@@ -42,13 +42,16 @@ flowchart LR
 ```
 
 ## Scripts
-<!-- TODO: completar cuando exista package.json -->
 | Comando | Descripción |
 |---|---|
-| `npm run dev` | Arranque en desarrollo |
-| `npm test` | Tests unit + integración |
+| `npm run dev` | Arranque en desarrollo (nodemon) |
+| `npm start` | Arranque en producción |
+| `npm test` | Tests unit + integración (requiere MongoDB) |
+| `npm run test:cov` | Tests con cobertura |
 | `npm run test:e2e` | Tests e2e (Playwright) |
-| `npm run seed` | Datos de ejemplo |
+| `npm run seed` | Datos de ejemplo (`seed:reset` limpia y re-siembra) |
+| `npm run loadtest` | Sonda de carga/concurrencia |
+| `npm run lint` | ESLint |
 
 ## Documentación
 - [`PROMPT.md`](PROMPT.md) — qué hace el producto (especificación).

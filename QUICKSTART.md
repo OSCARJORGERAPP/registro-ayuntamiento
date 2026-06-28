@@ -1,6 +1,6 @@
 # QUICKSTART — De cero a corriendo en < 5 min
 
-> Requisitos: Node.js LTS, Docker (para MongoDB y MailHog). <!-- TODO confirmar versiones -->
+> Requisitos: Node.js 20+ (LTS) y Docker (para MongoDB y MailHog).
 
 ```bash
 # 1. Dependencias
@@ -21,13 +21,16 @@ npm run dev
 ```
 
 Luego:
-- App: http://localhost:3000  <!-- TODO confirmar puerto -->
-- Magic links (bandeja de email dev): http://localhost:8025
+- App: http://localhost:3000
+- Magic links (bandeja de email dev): http://localhost:8025 (también se imprimen en la consola)
+
+## Usuarios del seed
+No hay contraseñas: inicia sesión introduciendo el email y abre el magic link.
+- **Contribuyentes:** `ana.contribuyente@ejemplo.com`, `luis.contribuyente@ejemplo.com`
+- **Funcionarios:** `paco.funcionario@ayto.example` (Urbanismo), `marta.funcionaria@ayto.example` (Hacienda)
 
 ## Probar el flujo
-1. Inicia sesión con un email de contribuyente del seed → abre el magic link en MailHog.
+1. Inicia sesión como `ana.contribuyente@ejemplo.com` → abre el magic link en MailHog.
 2. Presenta una **instancia general** (Expone / Solicita + adjunto).
-3. Inicia sesión como **funcionario** → abre la presentación → crea un **expediente**.
+3. Inicia sesión como `paco.funcionario@ayto.example` (Urbanismo) → abre la presentación → crea un **expediente**.
 4. Añade una **actuación** al expediente.
-
-<!-- TODO: ajustar credenciales/emails de ejemplo a los que cree el seed -->
