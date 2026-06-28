@@ -127,10 +127,10 @@ Estado real detectado en el repo (2026-06-26):
 |---|---|---|
 | `PROMPT.md` | Especificación del producto (este archivo) | ✅ |
 | `AGENTS.md` | Guía operativa para agentes/devs | ✅ |
-| `README.md` | Visión general, instalación, arranque, arquitectura | 🟡 funcional |
-| `QUICKSTART.md` | "De cero a corriendo" en < 5 min | 🟡 funcional |
-| `RETROSPECTIVA.md` | Bitácora problema → causa → solución | 🟡 stub |
-| `REFLEXION-FINAL.md` | Cierre: logros, decisiones, deuda técnica | 🟡 stub |
+| `README.md` | Visión general, instalación, arranque, arquitectura | ✅ |
+| `QUICKSTART.md` | "De cero a corriendo" en < 5 min | ✅ |
+| `RETROSPECTIVA.md` | Bitácora problema → causa → solución | ✅ |
+| `REFLEXION-FINAL.md` | Cierre: logros, MVP, decisiones, deuda técnica, próximos pasos | ✅ |
 | Tests automatizados | 33 unit/integración + 4 e2e Playwright (chromium), todos ✅; e2e activos en CI | ✅ |
 | Seed de datos (`npm run seed`) | Áreas, usuarios, presentaciones, expedientes de ejemplo | ✅ |
 | `.env.example` | Plantilla de variables de entorno | ✅ |
